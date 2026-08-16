@@ -13,13 +13,16 @@
   --accent-text: #ffffff;
 
   --hover: #ececec;
+
   --user: #f4f4f4;
 
 }
 
 
 * {
+
   box-sizing: border-box;
+
 }
 
 
@@ -40,7 +43,15 @@ body {
     sans-serif;
 
   background: var(--bg);
+
   color: var(--text);
+
+}
+
+
+body {
+
+  overflow: hidden;
 
 }
 
@@ -48,22 +59,27 @@ body {
 button,
 textarea,
 input {
+
   font: inherit;
+
 }
 
 
 button {
+
   cursor: pointer;
+
 }
 
 
-/* APP */
+/* ================= APP ================= */
 
 .app {
 
   display: flex;
 
   width: 100%;
+
   height: 100dvh;
 
   overflow: hidden;
@@ -71,22 +87,24 @@ button {
 }
 
 
-/* SIDEBAR */
+/* ================= SIDEBAR ================= */
 
 .sidebar {
 
   width: 280px;
+
   flex-shrink: 0;
 
   display: flex;
+
   flex-direction: column;
+
+  padding: 16px;
 
   background: var(--sidebar);
 
   border-right:
     1px solid var(--border);
-
-  padding: 16px;
 
   z-index: 20;
 
@@ -109,7 +127,7 @@ button {
 }
 
 
-/* BRAND */
+/* ================= BRAND ================= */
 
 .brand {
 
@@ -124,24 +142,22 @@ button {
 
 .brand-logo {
 
-  width: 36px;
-  height: 36px;
+  width: 38px;
 
-  display: grid;
-  place-items: center;
+  height: 38px;
+
+  object-fit: contain;
+
+  display: block;
 
   border-radius: 10px;
-
-  background: var(--accent);
-
-  color: var(--accent-text);
-
-  font-weight: 800;
 
 }
 
 
 .brand-name {
+
+  font-size: 15px;
 
   font-weight: 750;
 
@@ -150,20 +166,19 @@ button {
 
 .brand-powered {
 
+  margin-top: 2px;
+
   color: var(--muted);
 
   font-size: 10px;
 
-  margin-top: 2px;
-
 }
 
-
-/* BUTTONS */
 
 .icon-btn {
 
   width: 36px;
+
   height: 36px;
 
   border: none;
@@ -193,7 +208,7 @@ button {
 }
 
 
-/* NEW CHAT */
+/* ================= NEW CHAT ================= */
 
 .new-chat {
 
@@ -218,6 +233,8 @@ button {
 
   font-weight: 600;
 
+  text-align: left;
+
 }
 
 
@@ -228,7 +245,14 @@ button {
 }
 
 
-/* HISTORY */
+.new-chat-icon {
+
+  font-size: 18px;
+
+}
+
+
+/* ================= HISTORY ================= */
 
 .history-title {
 
@@ -290,14 +314,14 @@ button {
 }
 
 
-/* SIDEBAR BOTTOM */
+/* ================= SIDEBAR BOTTOM ================= */
 
 .sidebar-bottom {
 
+  padding-top: 10px;
+
   border-top:
     1px solid var(--border);
-
-  padding-top: 10px;
 
 }
 
@@ -334,7 +358,7 @@ button {
 }
 
 
-/* MAIN */
+/* ================= MAIN ================= */
 
 .main {
 
@@ -351,16 +375,18 @@ button {
 }
 
 
-/* TOP BAR */
+/* ================= TOP BAR ================= */
 
 .topbar {
 
   height: 58px;
+
   flex-shrink: 0;
 
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   border-bottom:
@@ -369,27 +395,58 @@ button {
 }
 
 
-.menu-btn,
-.mobile-brand {
+.menu-btn {
 
   display: none;
 
 }
 
 
+.mobile-brand {
+
+  display: none;
+
+  align-items: center;
+
+  gap: 8px;
+
+  font-weight: 750;
+
+}
+
+
+.mobile-logo {
+
+  width: 28px;
+
+  height: 28px;
+
+  object-fit: contain;
+
+  border-radius: 7px;
+
+}
+
+
 .model-pill {
 
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 9px 12px;
+
   border: none;
+
+  border-radius: 9px;
 
   background: transparent;
 
   color: var(--text);
 
   font-weight: 700;
-
-  padding: 9px 12px;
-
-  border-radius: 9px;
 
 }
 
@@ -401,7 +458,7 @@ button {
 }
 
 
-/* CHAT AREA */
+/* ================= CHAT AREA ================= */
 
 .chat-area {
 
@@ -414,7 +471,7 @@ button {
 }
 
 
-/* WELCOME */
+/* ================= WELCOME ================= */
 
 .welcome {
 
@@ -440,23 +497,17 @@ button {
 
 .welcome-logo {
 
-  width: 58px;
-  height: 58px;
+  width: 76px;
 
-  display: grid;
-  place-items: center;
+  height: 76px;
+
+  object-fit: contain;
+
+  display: block;
 
   margin-bottom: 20px;
 
   border-radius: 18px;
-
-  background: var(--accent);
-
-  color: var(--accent-text);
-
-  font-size: 28px;
-
-  font-weight: 800;
 
 }
 
@@ -487,11 +538,12 @@ button {
 }
 
 
-/* SUGGESTIONS */
+/* ================= SUGGESTIONS ================= */
 
 .suggestions {
 
-  width: min(760px, 100%);
+  width:
+    min(760px, 100%);
 
   display: grid;
 
@@ -519,7 +571,8 @@ button {
   text-align: left;
 
   transition:
-    transform .15s ease;
+    transform .15s ease,
+    background .15s ease;
 
 }
 
@@ -552,7 +605,7 @@ button {
 }
 
 
-/* MESSAGES */
+/* ================= MESSAGES ================= */
 
 .messages {
 
@@ -583,11 +636,13 @@ button {
 .avatar {
 
   width: 30px;
+
   height: 30px;
 
   flex-shrink: 0;
 
   display: grid;
+
   place-items: center;
 
   border-radius: 9px;
@@ -648,14 +703,16 @@ button {
 }
 
 
-/* COMPOSER */
+/* ================= COMPOSER ================= */
 
 .composer-wrap {
 
   position: absolute;
 
   left: 0;
+
   right: 0;
+
   bottom: 0;
 
   padding:
@@ -733,9 +790,11 @@ button {
 .send-btn {
 
   width: 36px;
+
   height: 36px;
 
   display: grid;
+
   place-items: center;
 
   border: none;
@@ -760,7 +819,7 @@ button {
 }
 
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 .disclaimer {
 
@@ -788,7 +847,7 @@ button {
 }
 
 
-/* OVERLAY */
+/* ================= OVERLAY ================= */
 
 .overlay {
 
@@ -813,7 +872,7 @@ button {
 }
 
 
-/* MODAL */
+/* ================= SETTINGS ================= */
 
 .modal {
 
@@ -857,7 +916,7 @@ button {
   background: var(--panel);
 
   box-shadow:
-    0 14px 40px rgba(0,0,0,.12);
+    0 14px 40px rgba(0,0,0,.15);
 
 }
 
@@ -925,7 +984,7 @@ button {
 }
 
 
-/* DARK MODE */
+/* ================= DARK MODE ================= */
 
 body.dark {
 
@@ -952,16 +1011,19 @@ body.dark {
 }
 
 
-/* MOBILE */
+/* ================= MOBILE ================= */
 
 @media (max-width: 720px) {
+
 
   .sidebar {
 
     position: fixed;
 
     top: 0;
+
     bottom: 0;
+
     left: 0;
 
     transform:
@@ -1001,9 +1063,7 @@ body.dark {
 
   .mobile-brand {
 
-    display: block;
-
-    font-weight: 750;
+    display: flex;
 
   }
 
@@ -1022,6 +1082,15 @@ body.dark {
   }
 
 
+  .welcome-logo {
+
+    width: 65px;
+
+    height: 65px;
+
+  }
+
+
   .suggestions {
 
     grid-template-columns: 1fr;
@@ -1032,6 +1101,7 @@ body.dark {
   .messages {
 
     padding-left: 14px;
+
     padding-right: 14px;
 
   }
@@ -1040,6 +1110,7 @@ body.dark {
   .composer-wrap {
 
     padding-left: 10px;
+
     padding-right: 10px;
 
   }
