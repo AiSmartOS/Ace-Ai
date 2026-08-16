@@ -50,21 +50,23 @@ const chatHistory =
   document.getElementById("chatHistory");
 
 
-/*
-  CHAT STORAGE
-*/
+/* ==========================================
+   CHAT STORAGE
+========================================== */
 
 let chats =
   JSON.parse(
-    localStorage.getItem("aceAiChats") || "[]"
+    localStorage.getItem(
+      "aceAiChats"
+    ) || "[]"
   );
 
 let currentChatId = null;
 
 
-/*
-  SAVE CHATS
-*/
+/* ==========================================
+   SAVE CHATS
+========================================== */
 
 function saveChats() {
 
@@ -76,19 +78,22 @@ function saveChats() {
 }
 
 
-/*
-  CREATE NEW CHAT
-*/
+/* ==========================================
+   CREATE CHAT
+========================================== */
 
 function createChat() {
 
   const chat = {
 
-    id: Date.now().toString(),
+    id:
+      Date.now().toString(),
 
-    title: "New chat",
+    title:
+      "New chat",
 
-    messages: []
+    messages:
+      []
 
   };
 
@@ -108,80 +113,93 @@ function createChat() {
 }
 
 
-/*
-  CURRENT CHAT
-*/
+/* ==========================================
+   GET CURRENT CHAT
+========================================== */
 
 function getCurrentChat() {
 
   return chats.find(
     chat =>
-      chat.id === currentChatId
+      chat.id ===
+      currentChatId
   );
 
 }
 
 
-/*
-  CHAT HISTORY
-*/
+/* ==========================================
+   RENDER HISTORY
+========================================== */
 
 function renderHistory() {
 
   chatHistory.innerHTML = "";
 
 
-  chats.forEach(chat => {
+  chats.forEach(
+    chat => {
 
-    const button =
-      document.createElement("button");
+      const button =
+        document.createElement(
+          "button"
+        );
 
 
-    button.className =
-      "history-item";
+      button.className =
+        "history-item";
 
 
-    if (
-      chat.id === currentChatId
-    ) {
+      if (
+        chat.id ===
+        currentChatId
+      ) {
 
-      button.classList.add("active");
+        button.classList.add(
+          "active"
+        );
+
+      }
+
+
+      button.textContent =
+        chat.title ||
+        "New chat";
+
+
+      button.title =
+        chat.title ||
+        "New chat";
+
+
+      button.onclick =
+        () => {
+
+          currentChatId =
+            chat.id;
+
+          renderHistory();
+
+          renderMessages();
+
+          closeMobileSidebar();
+
+        };
+
+
+      chatHistory.appendChild(
+        button
+      );
 
     }
-
-
-    button.textContent =
-      chat.title || "New chat";
-
-
-    button.title =
-      chat.title || "New chat";
-
-
-    button.onclick = () => {
-
-      currentChatId =
-        chat.id;
-
-      renderHistory();
-
-      renderMessages();
-
-      closeMobileSidebar();
-
-    };
-
-
-    chatHistory.appendChild(button);
-
-  });
+  );
 
 }
 
 
-/*
-  RENDER MESSAGES
-*/
+/* ==========================================
+   RENDER MESSAGES
+========================================== */
 
 function renderMessages() {
 
@@ -209,14 +227,16 @@ function renderMessages() {
     "none";
 
 
-  chat.messages.forEach(message => {
+  chat.messages.forEach(
+    message => {
 
-    addMessageToDOM(
-      message.role,
-      message.content
-    );
+      addMessageToDOM(
+        message.role,
+        message.content
+      );
 
-  });
+    }
+  );
 
 
   scrollToBottom();
@@ -224,9 +244,9 @@ function renderMessages() {
 }
 
 
-/*
-  ADD MESSAGE TO UI
-*/
+/* ==========================================
+   ADD MESSAGE TO DOM
+========================================== */
 
 function addMessageToDOM(
   role,
@@ -234,7 +254,9 @@ function addMessageToDOM(
 ) {
 
   const wrapper =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   wrapper.className =
@@ -242,7 +264,9 @@ function addMessageToDOM(
 
 
   const avatar =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   avatar.className =
@@ -256,7 +280,9 @@ function addMessageToDOM(
 
 
   const body =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   body.className =
@@ -264,7 +290,9 @@ function addMessageToDOM(
 
 
   const roleLabel =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   roleLabel.className =
@@ -278,7 +306,9 @@ function addMessageToDOM(
 
 
   const text =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   text.textContent =
@@ -304,9 +334,9 @@ function addMessageToDOM(
 }
 
 
-/*
-  ADD MESSAGE
-*/
+/* ==========================================
+   ADD MESSAGE
+========================================== */
 
 function addMessage(
   role,
@@ -326,9 +356,11 @@ function addMessage(
 
   chat.messages.push({
 
-    role: role,
+    role:
+      role,
 
-    content: content
+    content:
+      content
 
   });
 
@@ -348,10 +380,12 @@ function addMessage(
 
   saveChats();
 
+
   addMessageToDOM(
     role,
     content
   );
+
 
   renderHistory();
 
@@ -360,30 +394,31 @@ function addMessage(
 }
 
 
-/*
-  SCROLL
-*/
+/* ==========================================
+   SCROLL TO BOTTOM
+========================================== */
 
 function scrollToBottom() {
 
-  requestAnimationFrame(() => {
+  requestAnimationFrame(
+    () => {
 
-    chatArea.scrollTop =
-      chatArea.scrollHeight;
+      chatArea.scrollTop =
+        chatArea.scrollHeight;
 
-  });
+    }
+  );
 
 }
 
 
-/*
-  DEMO AI RESPONSE
-  --------------------------------
-  Replace this function later with
-  your real Ace-Ai API/backend.
-*/
+/* ==========================================
+   DEMO ACE-AI RESPONSE
+========================================== */
 
-function getDemoResponse(text) {
+function getDemoResponse(
+  text
+) {
 
   const lower =
     text.toLowerCase();
@@ -412,7 +447,7 @@ How can I help you today?
   ) {
 
     return `
-I'm Ace-Ai — an AI assistant powered by AiSmartOS.
+I'm Ace-Ai — an intelligent AI assistant powered by AiSmartOS.
 
 This GitHub version currently uses a demo response engine. A real AI backend can be connected later.
 `.trim();
@@ -457,9 +492,9 @@ Connect your real Ace-Ai backend to enable live AI responses.
 }
 
 
-/*
-  SEND MESSAGE
-*/
+/* ==========================================
+   SEND MESSAGE
+========================================== */
 
 async function sendMessage() {
 
@@ -467,7 +502,8 @@ async function sendMessage() {
     input.value.trim();
 
 
-  if (!text) return;
+  if (!text)
+    return;
 
 
   if (!currentChatId) {
@@ -481,7 +517,8 @@ async function sendMessage() {
 
   autoResize();
 
-  sendBtn.disabled = true;
+  sendBtn.disabled =
+    true;
 
 
   addMessage(
@@ -491,17 +528,22 @@ async function sendMessage() {
 
 
   /*
-    DEMO DELAY
+    Demo response delay
   */
 
   await new Promise(
     resolve =>
-      setTimeout(resolve, 650)
+      setTimeout(
+        resolve,
+        650
+      )
   );
 
 
   const response =
-    getDemoResponse(text);
+    getDemoResponse(
+      text
+    );
 
 
   addMessage(
@@ -510,16 +552,18 @@ async function sendMessage() {
   );
 
 
-  sendBtn.disabled = false;
+  sendBtn.disabled =
+    false;
+
 
   input.focus();
 
 }
 
 
-/*
-  TEXTAREA AUTO RESIZE
-*/
+/* ==========================================
+   TEXTAREA RESIZE
+========================================== */
 
 function autoResize() {
 
@@ -536,9 +580,9 @@ function autoResize() {
 }
 
 
-/*
-  MOBILE SIDEBAR
-*/
+/* ==========================================
+   MOBILE SIDEBAR
+========================================== */
 
 function closeMobileSidebar() {
 
@@ -553,17 +597,18 @@ function closeMobileSidebar() {
 }
 
 
-openSidebar.onclick = () => {
+openSidebar.onclick =
+  () => {
 
-  sidebar.classList.add(
-    "open"
-  );
+    sidebar.classList.add(
+      "open"
+    );
 
-  overlay.classList.add(
-    "show"
-  );
+    overlay.classList.add(
+      "show"
+    );
 
-};
+  };
 
 
 closeSidebar.onclick =
@@ -574,78 +619,82 @@ overlay.onclick =
   closeMobileSidebar;
 
 
-/*
-  NEW CHAT
-*/
+/* ==========================================
+   NEW CHAT
+========================================== */
 
-newChat.onclick = () => {
+newChat.onclick =
+  () => {
 
-  createChat();
+    createChat();
 
-  closeMobileSidebar();
+    closeMobileSidebar();
 
-  input.focus();
+    input.focus();
 
-};
-
-
-/*
-  CLEAR CHATS
-*/
-
-clearChats.onclick = () => {
-
-  if (!chats.length)
-    return;
+  };
 
 
-  const confirmed =
-    confirm(
-      "Clear all Ace-Ai chats?"
+/* ==========================================
+   CLEAR CHATS
+========================================== */
+
+clearChats.onclick =
+  () => {
+
+    if (!chats.length)
+      return;
+
+
+    const confirmed =
+      confirm(
+        "Clear all Ace-Ai chats?"
+      );
+
+
+    if (!confirmed)
+      return;
+
+
+    chats = [];
+
+    currentChatId =
+      null;
+
+
+    saveChats();
+
+    renderHistory();
+
+    renderMessages();
+
+  };
+
+
+/* ==========================================
+   SETTINGS
+========================================== */
+
+settingsBtn.onclick =
+  () => {
+
+    settingsModal.classList.remove(
+      "hidden"
     );
 
+    closeMobileSidebar();
 
-  if (!confirmed)
-    return;
-
-
-  chats = [];
-
-  currentChatId =
-    null;
+  };
 
 
-  saveChats();
+closeSettings.onclick =
+  () => {
 
-  renderHistory();
+    settingsModal.classList.add(
+      "hidden"
+    );
 
-  renderMessages();
-
-};
-
-
-/*
-  SETTINGS
-*/
-
-settingsBtn.onclick = () => {
-
-  settingsModal.classList.remove(
-    "hidden"
-  );
-
-  closeMobileSidebar();
-
-};
-
-
-closeSettings.onclick = () => {
-
-  settingsModal.classList.add(
-    "hidden"
-  );
-
-};
+  };
 
 
 settingsModal.onclick =
@@ -665,53 +714,59 @@ settingsModal.onclick =
   };
 
 
-/*
-  DARK MODE
-*/
+/* ==========================================
+   DARK MODE
+========================================== */
 
-themeToggle.onchange = () => {
+themeToggle.onchange =
+  () => {
 
-  document.body.classList.toggle(
-    "dark",
-    themeToggle.checked
-  );
-
-
-  localStorage.setItem(
-    "aceAiDarkMode",
-    themeToggle.checked
-      ? "1"
-      : "0"
-  );
-
-};
+    document.body.classList.toggle(
+      "dark",
+      themeToggle.checked
+    );
 
 
-/*
-  SUGGESTIONS
-*/
+    localStorage.setItem(
+      "aceAiDarkMode",
+      themeToggle.checked
+        ? "1"
+        : "0"
+    );
+
+  };
+
+
+/* ==========================================
+   SUGGESTION BUTTONS
+========================================== */
 
 document
-  .querySelectorAll(".suggestion")
-  .forEach(button => {
+  .querySelectorAll(
+    ".suggestion"
+  )
+  .forEach(
+    button => {
 
-    button.onclick = () => {
+      button.onclick =
+        () => {
 
-      input.value =
-        button.dataset.prompt;
+          input.value =
+            button.dataset.prompt;
 
-      autoResize();
+          autoResize();
 
-      input.focus();
+          input.focus();
 
-    };
+        };
 
-  });
+    }
+  );
 
 
-/*
-  FORM
-*/
+/* ==========================================
+   FORM SUBMIT
+========================================== */
 
 composer.onsubmit =
   event => {
@@ -723,26 +778,27 @@ composer.onsubmit =
   };
 
 
-/*
-  INPUT
-*/
+/* ==========================================
+   INPUT
+========================================== */
 
-input.oninput = () => {
+input.oninput =
+  () => {
 
-  autoResize();
+    autoResize();
 
-  sendBtn.disabled =
-    !input.value.trim();
+    sendBtn.disabled =
+      !input.value.trim();
 
-};
+  };
 
 
-/*
-  ENTER TO SEND
+/* ==========================================
+   ENTER TO SEND
 
-  Shift + Enter
-  = New line
-*/
+   ENTER = SEND
+   SHIFT + ENTER = NEW LINE
+========================================== */
 
 input.onkeydown =
   event => {
@@ -753,6 +809,7 @@ input.onkeydown =
     ) {
 
       event.preventDefault();
+
 
       if (
         input.value.trim()
@@ -767,9 +824,9 @@ input.onkeydown =
   };
 
 
-/*
-  LOAD THEME
-*/
+/* ==========================================
+   LOAD DARK MODE
+========================================== */
 
 const savedDarkMode =
   localStorage.getItem(
@@ -777,7 +834,9 @@ const savedDarkMode =
   );
 
 
-if (savedDarkMode === "0") {
+if (
+  savedDarkMode === "0"
+) {
 
   themeToggle.checked =
     false;
@@ -798,9 +857,9 @@ if (savedDarkMode === "0") {
 }
 
 
-/*
-  LOAD EXISTING CHATS
-*/
+/* ==========================================
+   LOAD CHATS
+========================================== */
 
 if (chats.length) {
 
@@ -816,4 +875,5 @@ renderMessages();
 
 autoResize();
 
-sendBtn.disabled = true;
+sendBtn.disabled =
+  true;
