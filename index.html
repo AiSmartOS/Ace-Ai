@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <meta
+    name="description"
+    content="Ace-Ai — an intelligent AI assistant powered by AiSmartOS."
+  >
+
   <title>Ace-Ai — Powered by AiSmartOS</title>
 
   <link rel="stylesheet" href="style.css">
@@ -13,25 +18,40 @@
 
   <div class="app">
 
-    <!-- SIDEBAR -->
+    <!-- ================= SIDEBAR ================= -->
+
     <aside class="sidebar" id="sidebar">
 
       <div class="sidebar-top">
 
         <div class="brand">
-          <div class="brand-logo">A</div>
 
-          <div>
-            <div class="brand-name">Ace-Ai</div>
+          <img
+            src="acelogo.jpg"
+            alt="Ace-Ai Logo"
+            class="brand-logo"
+          >
+
+          <div class="brand-info">
+
+            <div class="brand-name">
+              Ace-Ai
+            </div>
+
             <div class="brand-powered">
               Powered by AiSmartOS
             </div>
+
           </div>
+
         </div>
+
 
         <button
           class="icon-btn close-sidebar"
-          id="closeSidebar">
+          id="closeSidebar"
+          aria-label="Close sidebar"
+        >
           ×
         </button>
 
@@ -39,41 +59,64 @@
 
 
       <!-- NEW CHAT -->
-      <button class="new-chat" id="newChat">
-        <span>＋</span>
-        <span>New chat</span>
+
+      <button
+        class="new-chat"
+        id="newChat"
+      >
+
+        <span class="new-chat-icon">
+          ＋
+        </span>
+
+        <span>
+          New chat
+        </span>
+
       </button>
 
 
       <!-- CHAT HISTORY -->
+
       <div class="history-title">
         Recent chats
       </div>
 
       <div
         class="chat-history"
-        id="chatHistory">
+        id="chatHistory"
+      >
       </div>
 
 
       <!-- SIDEBAR BOTTOM -->
+
       <div class="sidebar-bottom">
 
         <button
           class="sidebar-action"
-          id="clearChats">
+          id="clearChats"
+        >
 
           <span>⌫</span>
-          <span>Clear chats</span>
+
+          <span>
+            Clear chats
+          </span>
 
         </button>
 
+
         <button
           class="sidebar-action"
-          id="settingsBtn">
+          id="settingsBtn"
+        >
 
           <span>⚙</span>
-          <span>Settings</span>
+
+          <span>
+            Settings
+          </span>
 
         </button>
 
@@ -82,49 +125,83 @@
     </aside>
 
 
-    <!-- MAIN -->
+    <!-- ================= MAIN ================= -->
+
     <main class="main">
 
+
       <!-- TOP BAR -->
+
       <header class="topbar">
 
         <button
           class="icon-btn menu-btn"
-          id="openSidebar">
-
+          id="openSidebar"
+          aria-label="Open sidebar"
+        >
           ☰
-
         </button>
 
+
         <div class="mobile-brand">
-          ✦ Ace-Ai
+
+          <img
+            src="acelogo.jpg"
+            alt="Ace-Ai"
+            class="mobile-logo"
+          >
+
+          <span>
+            Ace-Ai
+          </span>
+
         </div>
 
-        <button class="model-pill">
-          Ace-Ai <span>⌄</span>
+
+        <button
+          class="model-pill"
+          id="modelButton"
+        >
+
+          <span>
+            Ace-Ai
+          </span>
+
+          <span>
+            ⌄
+          </span>
+
         </button>
 
       </header>
 
 
-      <!-- CHAT AREA -->
+      <!-- ================= CHAT AREA ================= -->
+
       <section
         class="chat-area"
-        id="chatArea">
+        id="chatArea"
+      >
 
 
         <!-- WELCOME -->
+
         <div
           class="welcome"
-          id="welcome">
+          id="welcome"
+        >
 
-          <div class="welcome-logo">
-            ✦
-          </div>
+          <img
+            src="acelogo.jpg"
+            alt="Ace-Ai Logo"
+            class="welcome-logo"
+          >
+
 
           <h1>
             How can I help you today?
           </h1>
+
 
           <p>
             Your intelligent assistant powered by AiSmartOS.
@@ -132,11 +209,14 @@
 
 
           <!-- SUGGESTIONS -->
+
           <div class="suggestions">
+
 
             <button
               class="suggestion"
-              data-prompt="Explain a difficult topic in simple language">
+              data-prompt="Explain a difficult topic in simple language"
+            >
 
               <strong>
                 Explain something
@@ -151,7 +231,8 @@
 
             <button
               class="suggestion"
-              data-prompt="Help me plan my day">
+              data-prompt="Help me plan my day"
+            >
 
               <strong>
                 Plan my day
@@ -166,7 +247,8 @@
 
             <button
               class="suggestion"
-              data-prompt="Give me some creative ideas">
+              data-prompt="Give me some creative ideas"
+            >
 
               <strong>
                 Get creative
@@ -181,7 +263,8 @@
 
             <button
               class="suggestion"
-              data-prompt="Write a short piece of code">
+              data-prompt="Write a short piece of code"
+            >
 
               <strong>
                 Write code
@@ -199,34 +282,41 @@
 
 
         <!-- MESSAGES -->
+
         <div
           class="messages"
-          id="messages">
-
+          id="messages"
+          aria-live="polite"
+        >
         </div>
 
       </section>
 
 
-      <!-- MESSAGE COMPOSER -->
+      <!-- ================= COMPOSER ================= -->
+
       <footer class="composer-wrap">
+
 
         <form
           class="composer"
-          id="composer">
+          id="composer"
+        >
 
           <textarea
             id="messageInput"
             rows="1"
             placeholder="Message Ace-Ai..."
-            aria-label="Message Ace-Ai">
-          </textarea>
+            aria-label="Message Ace-Ai"
+          ></textarea>
 
 
           <button
             class="send-btn"
             id="sendBtn"
-            type="submit">
+            type="submit"
+            aria-label="Send message"
+          >
 
             ↑
 
@@ -246,7 +336,9 @@
         <div class="powered-footer">
 
           Powered by
-          <strong>AiSmartOS</strong>
+          <strong>
+            AiSmartOS
+          </strong>
 
         </div>
 
@@ -257,32 +349,40 @@
   </div>
 
 
-  <!-- MOBILE OVERLAY -->
+  <!-- ================= MOBILE OVERLAY ================= -->
+
   <div
     class="overlay"
-    id="overlay">
-  </div>
+    id="overlay"
+  ></div>
 
 
-  <!-- SETTINGS -->
+  <!-- ================= SETTINGS MODAL ================= -->
+
   <div
     class="modal hidden"
-    id="settingsModal">
+    id="settingsModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="settingsTitle"
+  >
 
     <div class="modal-card">
 
+
       <div class="modal-head">
 
-        <h2>
+        <h2 id="settingsTitle">
           Settings
         </h2>
 
+
         <button
           class="icon-btn"
-          id="closeSettings">
-
+          id="closeSettings"
+          aria-label="Close settings"
+        >
           ×
-
         </button>
 
       </div>
@@ -302,17 +402,19 @@
 
         </span>
 
+
         <input
           type="checkbox"
-          id="themeToggle">
+          id="themeToggle"
+        >
 
       </label>
 
 
       <div class="modal-note">
 
-        Ace-Ai can later be connected to
-        your real AI backend.
+        Ace-Ai can later be connected
+        to a real AI backend.
 
       </div>
 
@@ -321,7 +423,9 @@
   </div>
 
 
+  <!-- JAVASCRIPT -->
+
   <script src="script.js"></script>
 
 </body>
-  </html>
+</html>
