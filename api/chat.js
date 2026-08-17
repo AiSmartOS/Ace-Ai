@@ -1,22 +1,20 @@
-export default async function handler(request) {
-
-    // Only allow POST requests
-    if (request.method !== "POST") {
-        return new Response(
-            JSON.stringify({
-                error: "Method not allowed"
-            }),
-            {
-                status: 405,
-                headers: {
-                    "Content-Type": "application/json"
-                }
+export function GET() {
+    return new Response(
+        JSON.stringify({
+            status: "ok",
+            message: "Ace-Ai backend is running!"
+        }),
+        {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
             }
-        );
-    }
+        }
+    );
+}
 
+export async function POST(request) {
     try {
-
         const body = await request.json();
 
         const message = body.message;
@@ -49,10 +47,9 @@ export default async function handler(request) {
         );
 
     } catch (error) {
-
         return new Response(
             JSON.stringify({
-                error: "Invalid request"
+                error: "Invalid JSON request"
             }),
             {
                 status: 400,
