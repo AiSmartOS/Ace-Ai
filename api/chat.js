@@ -1,16 +1,8 @@
 export async function GET() {
-    return new Response(
-        JSON.stringify({
-            status: "ok",
-            message: "Ace-Ai AI backend is running!"
-        }),
-        {
-            status: 200,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }
-    );
+    return Response.json({
+        status: "ok",
+        message: "Ace-Ai OpenAI backend is running!"
+    });
 }
 
 export async function POST(request) {
@@ -18,110 +10,64 @@ export async function POST(request) {
         const { message } = await request.json();
 
         if (!message || !message.trim()) {
-            return new Response(
-                JSON.stringify({
-                    error: "Message is required"
-                }),
-                {
-                    status: 400,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                }
+            return Response.json(
+                { error: "Message is required." },
+                { status: 400 }
             );
         }
 
-        const apiKey = process.env.OPENROUTER_API_KEY;
+        const apiKey = process.env.OPENAI_API_KEY;
 
         if (!apiKey) {
-            return new Response(
-                JSON.stringify({
-                    error: "OpenRouter API key is not configured."
-                }),
-                {
-                    status: 500,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                }
+            return Response.json(
+                { error: "OPENAI_API_KEY is not configured." },
+                { status: 500 }
             );
         }
 
-        const aiResponse = await fetch(
-            "https://openrouter.ai/api/v1/chat/completions",
+        const response = await fetch(
+            "https://api.openai.com/v1/responses",
             {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${apiKey}`,
                     "Content-Type": "application/json",
-                    "HTTP-Referer": "https://aismartos.github.io/Ace-Ai/",
-                    "X-Title": "Ace-Ai"
+                    "Authorization": `Bearer ${apiKey}`
                 },
                 body: JSON.stringify({
-                    model: "openrouter/free",
-                    messages: [
-                        {
-                            role: "system",
-                            content:
-                                "You are Ace-Ai, an intelligent assistant powered by AiSmartOS. Give helpful, clear and accurate answers. If you are unsure about something, say so instead of making it up."
-                        },
-                        {
-                            role: "user",
-                            content: message
-                        }
-                    ]
+                    model: "gpt-5.6",
+                    input: message
                 })
             }
         );
 
-        const data = await aiResponse.json();
+        const data = await response.json();
 
-        if (!aiResponse.ok) {
-            return new Response(
-                JSON.stringify({
+        if (!response.ok) {
+            console.error("OpenAI error:", data);
+
+            return Response.json(
+                {
                     error:
                         data?.error?.message ||
-                        "OpenRouter request failed."
-                }),
-                {
-                    status: aiResponse.status,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                }
+                        "OpenAI request failed."
+                },
+                { status: response.status }
             );
         }
 
-        const reply =
-            data?.choices?.[0]?.message?.content ||
-            "Sorry, I couldn't generate a response.";
-
-        return new Response(
-            JSON.stringify({
-                success: true,
-                reply: reply
-            }),
-            {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        );
+        return Response.json({
+            success: true,
+            reply: data.output_text || "No response generated."
+        });
 
     } catch (error) {
-        console.error("Ace-Ai error:", error);
+        console.error("Ace-Ai backend error:", error);
 
-        return new Response(
-            JSON.stringify({
-                error: "Unable to connect to the AI."
-            }),
+        return Response.json(
             {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
+                error: "Unable to connect to Ace-Ai."
+            },
+            { status: 500 }
         );
     }
-            }
+                      }
