@@ -413,81 +413,93 @@ function scrollToBottom() {
 
 
 /* ==========================================
-   DEMO ACE-AI RESPONSE
+   REAL ACE-AI BACKEND
 ========================================== */
 
-function getDemoResponse(
+async function getAIResponse(
   text
 ) {
 
-  const lower =
-    text.toLowerCase();
+  try {
+
+    const response =
+      await fetch(
+        "/api/chat",
+        {
+          method:
+            "POST",
+
+          headers:
+            {
+              "Content-Type":
+                "application/json"
+            },
+
+          body:
+            JSON.stringify({
+              message:
+                text
+            })
+        }
+      );
 
 
-  if (
-    lower.includes("hello") ||
-    lower.includes("hi") ||
-    lower.includes("hey")
-  ) {
+    let data;
+
+    try {
+
+      data =
+        await response.json();
+
+    } catch (jsonError) {
+
+      throw new Error(
+        "The Ace-Ai backend returned an invalid response."
+      );
+
+    }
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data?.error ||
+        "Ace-Ai backend request failed."
+      );
+
+    }
+
+
+    if (
+      !data.reply
+    ) {
+
+      throw new Error(
+        "Ace-Ai returned an empty response."
+      );
+
+    }
+
+
+    return data.reply;
+
+  } catch (error) {
+
+    console.error(
+      "Ace-Ai API Error:",
+      error
+    );
+
 
     return `
-Hey! 👋
+Sorry, I couldn't connect to the Ace-Ai AI backend right now.
 
-I'm Ace-Ai, powered by AiSmartOS.
+Please try again in a moment.
 
-How can I help you today?
+Error: ${error.message}
 `.trim();
 
   }
-
-
-  if (
-    lower.includes("who are you") ||
-    lower.includes("what are you")
-  ) {
-
-    return `
-I'm Ace-Ai — an intelligent AI assistant powered by AiSmartOS.
-
-This GitHub version currently uses a demo response engine. A real AI backend can be connected later.
-`.trim();
-
-  }
-
-
-  if (
-    lower.includes("code") ||
-    lower.includes("html") ||
-    lower.includes("javascript")
-  ) {
-
-    return `
-Absolutely! 💻
-
-Tell me what you want to build and I can help you plan the structure, write the code, and explain how it works.
-`.trim();
-
-  }
-
-
-  if (
-    lower.includes("thank")
-  ) {
-
-    return `
-You're welcome! ✦
-`.trim();
-
-  }
-
-
-  return `
-That's a great question.
-
-The Ace-Ai interface is ready, but this GitHub version is currently running a local demo response engine.
-
-Connect your real Ace-Ai backend to enable live AI responses.
-`.trim();
 
 }
 
@@ -528,20 +540,11 @@ async function sendMessage() {
 
 
   /*
-    Demo response delay
+     Ask the real Ace-Ai backend
   */
 
-  await new Promise(
-    resolve =>
-      setTimeout(
-        resolve,
-        650
-      )
-  );
-
-
   const response =
-    getDemoResponse(
+    await getAIResponse(
       text
     );
 
@@ -876,4 +879,4 @@ renderMessages();
 autoResize();
 
 sendBtn.disabled =
-  true;
+  !input.value.trim();
